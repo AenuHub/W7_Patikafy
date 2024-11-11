@@ -37,12 +37,12 @@ public class Program
             Console.Write($"{artist.Name} -> {artist.AlbumSales} albums sold.\n");
         }
         Console.WriteLine("------------------");
-        
-        var artistsWithDebutBefore2000AndGenrePop = artists.Where(x => x.DebutYear < 2000 
-                                                                       && x.Genres.Contains("Pop")).ToList();
-        var groupedArtists = artistsWithDebutBefore2000AndGenrePop.GroupBy(x => x.DebutYear);
+
+        var artistsWithDebutBefore2000AndGenrePop = artists.Where(x => x.DebutYear < 2000
+                                                                       && x.Genres.Contains("Pop"))
+            .OrderBy(x => x.Name).GroupBy(x => x.DebutYear).ToList();
         Console.WriteLine("Artists with debut before year 2000 and made pop music:");
-        foreach (var debutYear in groupedArtists)
+        foreach (var debutYear in artistsWithDebutBefore2000AndGenrePop)
         {
             Console.WriteLine($"Year: {debutYear.Key} -> {debutYear.Count()} artists:");
             var orderedArtists = debutYear.OrderBy(x => x.Name).ToList();
